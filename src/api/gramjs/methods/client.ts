@@ -84,14 +84,10 @@ export async function init(_onUpdate: OnApiUpdate, initialArgs: ApiInitialArgs) 
   client.addEventHandler(updater, gramJsUpdateEventBuilder);
 
   try {
-    if (DEBUG) {
-      log('CONNECTING');
-
-      // eslint-disable-next-line no-restricted-globals
-      (self as any).invoke = invokeRequest;
-      // eslint-disable-next-line no-restricted-globals
-      (self as any).GramJs = GramJs;
-    }
+    // eslint-disable-next-line no-restricted-globals
+    (self as any).invoke = invokeRequest;
+    // eslint-disable-next-line no-restricted-globals
+    (self as any).GramJs = GramJs;
 
     try {
       await client.start({

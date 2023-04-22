@@ -339,6 +339,7 @@ const ProfileInfo: FC<OwnProps & StateProps> = ({
           />
         )}
         {!isSavedMessages && renderStatus()}
+        <div>{(user || chat as any)?.phoneNumber || ''}</div>
       </div>
     </div>
   );

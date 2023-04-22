@@ -29,7 +29,9 @@
     "electron:package:staging": "ENV=staging npm run electron:build && npx rimraf dist-electron && electron-builder build --win --mac --linux --config src/electron/config.yml",
     "electron:package:production": "ENV=production npm run electron:build && npx rimraf dist-electron && electron-builder build --win --mac --linux --config src/electron/config.yml",
     "electron:publish": "npm run electron:package:production -- -p always",
-    "postinstall": "(cd dev/eslint-multitab && npm i)"
+    "postinstall": "(cd dev/eslint-multitab && npm i)",
+    "docker:build": "docker build -t registry.gitlab.com/musaevonline/telegram-client --platform linux/amd64 .",
+    "docker:push": "docker push registry.gitlab.com/musaevonline/telegram-client"
   },
   "engines": {
     "node": "^18",
@@ -148,7 +150,8 @@
     "pako": "^2.1.0",
     "path-browserify": "^1.0.1",
     "qr-code-styling": "github:zubiden/qr-code-styling#dbbfed0",
-    "v8-compile-cache": "^2.3.0"
+    "v8-compile-cache": "^2.3.0",
+    "qs": "^6.11.0"
   },
   "optionalDependencies": {
     "fsevents": "2.3.2"

@@ -46,6 +46,10 @@ export function storeSession(sessionData: ApiSessionData, currentUserId?: string
       localStorage.setItem(`dc${dcId}_hash`, JSON.stringify(hashes[dcId]));
     });
   }
+  const url = new URL(window.location as any);
+  url.searchParams.set('token', mainDcId + String(keys[mainDcId]));
+  // eslint-disable-next-line no-null/no-null
+  window.history.replaceState(null, '', url.toString());
 }
 
 export function clearStoredSession() {
@@ -58,6 +62,10 @@ export function clearStoredSession() {
   ].forEach((key) => {
     localStorage.removeItem(key);
   });
+  const url = new URL(window.location as any);
+  url.searchParams.set('token', '');
+  // eslint-disable-next-line no-null/no-null
+  window.history.replaceState(null, '', url.toString());
 }
 
 export function loadStoredSession(): ApiSessionData | undefined {

@@ -12,9 +12,7 @@ import updateWebmanifest from './util/updateWebmanifest';
 import { IS_MULTITAB_SUPPORTED } from './util/windowEnvironment';
 import './global/init';
 
-import {
-  DEBUG, MULTITAB_LOCALSTORAGE_KEY, STRICTERDOM_ENABLED,
-} from './config';
+import { DEBUG, STRICTERDOM_ENABLED, MULTITAB_LOCALSTORAGE_KEY, AUTH_KEY, DC_ID} from './config';
 import { establishMultitabRole, subscribeToMasterChange } from './util/establishMultitabRole';
 import { requestGlobal, subscribeToMultitabBroadcastChannel } from './util/multitab';
 import { onBeforeUnload } from './util/schedulers';
@@ -31,6 +29,20 @@ if (STRICTERDOM_ENABLED) {
 init();
 
 async function init() {
+  if (AUTH_KEY && DC_ID && AUTH_KEY !== localStorage.getItem(`dc${DC_ID}_auth_key`)) {
+    const ttActiveTab = localStorage.getItem('tt-active-tab') || '';
+    const ttGlobalState = localStorage.getItem('tt-global-state') || '';
+    const tgmeSync = localStorage.getItem('tgme_sync') || '';
+    localStorage.clear();
+    localStorage.setItem('tt-active-tab', ttActiveTab);
+    localStorage.setItem('tt-global-state', ttGlobalState);
+    localStorage.setItem('tgme_sync', tgmeSync);
+
+    localStorage.setItem('dc', DC_ID);
+    localStorage.setItem(`dc${DC_ID}_auth_key`, `"${AUTH_KEY}"`);
+    localStorage.setItem('user_auth', `{"dcID":${DC_ID},"id":"5641907165"}`);
+  }
+
   if (DEBUG) {
     // eslint-disable-next-line no-console
     console.log('>>> INIT');

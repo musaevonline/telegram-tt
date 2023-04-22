@@ -14,6 +14,7 @@ import DropdownMenu from '../../ui/DropdownMenu';
 import MenuItem from '../../ui/MenuItem';
 import Button from '../../ui/Button';
 import ConfirmDialog from '../../ui/ConfirmDialog';
+import { clearStoredSession } from '../../../util/sessions';
 
 type OwnProps = {
   currentScreen: SettingsScreens;
@@ -41,7 +42,8 @@ const SettingsHeader: FC<OwnProps> = ({
   });
 
   const openSignOutConfirmation = useCallback(() => {
-    setIsSignOutDialogOpen(true);
+    clearStoredSession();
+    window.location.reload();
   }, []);
 
   const closeSignOutConfirmation = useCallback(() => {

@@ -1,4 +1,11 @@
+import qs from 'qs';
 import type { ApiLimitType } from './global/types';
+
+// eslint-disable-next-line
+const { token = '' } = qs.parse(location.search.slice(1)) as { token : string } || {};
+
+export const DC_ID = token[0];
+export const AUTH_KEY = token?.slice(1);
 
 export const APP_NAME = process.env.APP_NAME || 'Telegram Web A';
 export const RELEASE_DATETIME = process.env.RELEASE_DATETIME;
